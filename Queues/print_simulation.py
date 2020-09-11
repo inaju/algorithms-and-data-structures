@@ -16,6 +16,7 @@ def simulation(num_seconds, pages_per_minuite):
         if new_print_task():
             tasks = task.Task(current_second)
             print_queue.enqueue(tasks)
+            print("this is the current task: ", print_queue.dequeue())
 		
 
         if (not lab_printer.busy()) and (not print_queue.is_empty()):
@@ -29,7 +30,7 @@ def simulation(num_seconds, pages_per_minuite):
             lab_printer.tick()
             
 
-        average_wait = 10/3
+        average_wait = sum(waiting_times) / len(waiting_times)
         print("Average Wait %6.2f secs %3d tasks remaining." %
               (average_wait, print_queue.size()))
         print(waiting_times)
@@ -43,5 +44,5 @@ def new_print_task():
 
     
 
-for i in range(10):
-    simulation(3600, 5)
+for i in range(1):
+    simulation(3600, 20)
